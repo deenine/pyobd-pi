@@ -119,10 +119,14 @@ class OBDPanelGauges(wx.Panel):
     """
     
     def __init__(self, *args, **kwargs):
+        
         """
         Constructor.
         """
         super(OBDPanelGauges, self).__init__(*args, **kwargs)
+
+        #Panel settings
+        self.noOfGauges = 6 #max 6
 
         # Background image
         image = wx.Image(BACKGROUND_FILENAME) 
@@ -179,7 +183,7 @@ class OBDPanelGauges(wx.Panel):
         """
         sensors_display = []
         if istart<len(self.sensors):
-            iend = istart + 6
+            iend = istart + self.noOfGauges
             sensors_display = self.sensors[istart:iend]
         return sensors_display
 
@@ -200,7 +204,12 @@ class OBDPanelGauges(wx.Panel):
         boxSizerMain = wx.BoxSizer(wx.VERTICAL)
 
         # Grid sizer
-        nrows, ncols = 2, 3
+        if self.noOfGauges < 4:
+            nrows, ncols = 1, self.noOfGauges
+        elif self.noOfGauges > 4:
+            nrows, ncols = 2, 3
+        else:
+            nrows, ncols = 2, 2
         vgap, hgap = 50, 50
         gridSizer = wx.GridSizer(nrows, ncols, vgap, hgap)
 

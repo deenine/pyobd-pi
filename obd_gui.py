@@ -244,7 +244,7 @@ class OBDPanelGauges(wx.Panel):
 
         # Add invisible boxes if necessary
         nsensors = len(sensors)
-        for i in range(6-nsensors):
+        for i in range(self.noOfGauges - nsensors):
             box = OBDStaticBox(self)
             boxSizer = wx.StaticBoxSizer(box, wx.VERTICAL)
             self.boxes.append(box)
@@ -284,19 +284,19 @@ class OBDPanelGauges(wx.Panel):
 
     def onLeft(self, event):
         """
-        Get data from 6 previous sensors in the list.
+        Get data from self.noOfGauges previous sensors in the list.
         """
-        istart = self.istart-6 
-        if istart<0: istart = 0
+        istart = self.istart - self.noOfGauges 
+        if istart < 0: istart = 0
         self.istart = istart
         self.ShowSensors()
 
     def onRight(self, event):
         """
-        Get data from 6 next sensors in the list.
+        Get data from self.noOfGauges next sensors in the list.
         """
-        istart = self.istart+6
-        if istart<len(self.sensors):
+        istart = self.istart + self.noOfGauges
+        if istart < len(self.sensors):
             self.istart = istart
             self.ShowSensors()
 

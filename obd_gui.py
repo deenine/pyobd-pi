@@ -126,7 +126,8 @@ class OBDPanelGauges(wx.Panel):
         super(OBDPanelGauges, self).__init__(*args, **kwargs)
 
         #Panel settings
-        self.noOfGauges = 6 #max 6
+        self.noOfGauges = 4 #max 6
+	self.textSize = 12 # default 16
 
         # Background image
         image = wx.Image(BACKGROUND_FILENAME) 
@@ -210,7 +211,7 @@ class OBDPanelGauges(wx.Panel):
             nrows, ncols = 2, 3
         else:
             nrows, ncols = 2, 2
-        vgap, hgap = 50, 50
+        vgap, hgap = 8, 8
         gridSizer = wx.GridSizer(nrows, ncols, vgap, hgap)
 
         # Create a box for each sensor
@@ -234,9 +235,9 @@ class OBDPanelGauges(wx.Panel):
             self.texts.append(t1)
 
             # Text for sensor name
-            t2 = wx.StaticText(parent=self, label=unit+"\n"+name, style=wx.ALIGN_CENTER)
+            t2 = wx.StaticText(parent=self, label=unit + "\n" + name, style=wx.ALIGN_CENTER)
             t2.SetForegroundColour('WHITE')
-            font2 = wx.Font(13, wx.ROMAN, wx.NORMAL, wx.BOLD, faceName="Monaco")
+            font2 = wx.Font(11, wx.ROMAN, wx.NORMAL, wx.BOLD, faceName="Monaco")
             t2.SetFont(font2)
             boxSizer.Add(t2, 0, wx.ALIGN_CENTER | wx.ALL, 5)
             self.texts.append(t2)
@@ -361,11 +362,12 @@ class OBDLoadingPanel(wx.Panel):
         """
         Display the loading screen.
         """
+
         boxSizer = wx.BoxSizer(wx.VERTICAL)
         self.textCtrl = OBDText(self)
         boxSizer.Add(self.textCtrl, 1, wx.EXPAND | wx.ALL, 92)
         self.SetSizer(boxSizer)
-        font3 = wx.Font(16, wx.ROMAN, wx.NORMAL, wx.NORMAL, faceName="Monaco")
+        font3 = wx.Font(12, wx.ROMAN, wx.NORMAL, wx.NORMAL, faceName="Monaco")
         self.textCtrl.SetFont(font3)
         self.textCtrl.AddText(" Opening interface (serial port)\n")     
         self.textCtrl.AddText(" Trying to connect...\n")
